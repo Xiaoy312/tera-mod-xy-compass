@@ -1,0 +1,12 @@
+{
+    "files": {
+        "index.js": "42b903f82a76f536f5d73882039c76fa17ca57fe1fd0e406fd8f2956cf4b9e86",
+        "settings_migrator.js": "456871393a7309d1b8d66e2b0a00312199d9c25e12aecaba9e66ce22ad5908d2",
+        "module.json": "cba83b340b220cb21c75bd0391e4f73bf03ec085db1350db6aa2ec9fd020d468"
+    },
+    "defs": {
+        "S_LOAD_TOPO": 3,
+        "S_SPAWN_COLLECTION": 4,
+        "S_DESPAWN_COLLECTION": 2
+    }
+}
