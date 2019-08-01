@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = function GatheringCompass(mod) {
-	this.StateTracker = mod.require.CaaliStateTracker;
-
 	const CommandName = 'xyc'
 	const IdMod = 2n;
 	const MarkerId = 98260;
