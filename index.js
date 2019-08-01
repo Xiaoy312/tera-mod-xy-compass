@@ -26,7 +26,7 @@ module.exports = function GatheringCompass(mod) {
 
 	mod.hook('S_SPAWN_COLLECTION', 4, event => {
 		mod.log(`S_SPAWN_COLLECTION: ${event.gameId}: ${event.id} ${event.amount}x ${event.loc}`);
-		addMarker(event.gameId, event.loc);
+		addMarker(event.gameId, event.id, event.loc);
 	})
 	mod.hook('S_DESPAWN_COLLECTION', 2, event => {
 		removeMarker(event.gameId);
@@ -35,13 +35,22 @@ module.exports = function GatheringCompass(mod) {
 	// clean up
 	this.destructor = () => {
 		mod.command.remove(CommandName);
+		markers.forEach(x => removeMarker(BigInt(x)));
 	}
 
-	function addMarker(id, loc) {
+	function addMarker(gameId, id, loc) {
+		let gatherable =
+			settings.plants.find(x => x.id === id) ||
+			settings.mining.find(x => x.id === id) ||
+			settings.energy.find(x => x.id === id);
+		if (!gatherable) return;
+
+		mod.command.message(`Found gathering node: [${gatherable.category}] ${gatherable.name}`);
+		
 		loc.z -= 100;
 
 		let marker = {
-			gameId: id * IdMod,
+			gameId: gameId * IdMod,
 			loc: loc,
 			item: MarkerId,
 			amount: 1,
@@ -54,12 +63,12 @@ module.exports = function GatheringCompass(mod) {
 			owners: [{ id: 0 }]
 		}
 		mod.send('S_SPAWN_DROPITEM', 7, marker);
-		markers.push(id.toString());
+		markers.push(gameId.toString());
 	}
-	function removeMarker(id) {
-		if (!markers.includes(id.toString())) return;
+	function removeMarker(gameId) {
+		if (!markers.includes(gameId.toString())) return;
 
-		mod.send('S_DESPAWN_DROPITEM', 4, { gameId: id * IdMod });
-		markers.splice(markers.indexOf(id.toString()), 1);
+		mod.send('S_DESPAWN_DROPITEM', 4, { gameId: gameId * IdMod });
+		markers.splice(markers.indexOf(gameId.toString()), 1);
 	}
 }

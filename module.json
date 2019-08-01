@@ -7,7 +7,7 @@
   "options": {
     "niceName": "Xiaoy's Compass",
     "reloadable": true,
-    "settingsVersion": 1,
+    "settingsVersion": 2,
     "settingsFile": "config.json",
     "settingsMigrator": "settings_migrator.js"
   },
