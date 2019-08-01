@@ -1,6 +1,7 @@
 'use strict';
 
 const DefaultSettings = {
+  enabled: false,
 };
 
 function MigrateSettings(from_ver, to_ver, settings) {

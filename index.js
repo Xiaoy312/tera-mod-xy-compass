@@ -3,12 +3,22 @@
 module.exports = function GatheringCompass(mod) {
 	this.StateTracker = mod.require.CaaliStateTracker;
 
+	const CommandName = 'xyc'
 	const IdMod = 2n;
 	const MarkerId = 98260;
 
 	let settings = mod.settings;
 	let markers = [];
 
+	mod.command.remove(CommandName);
+
+	// commands
+	mod.command.add(CommandName, {
+		$default: x => mod.command.message(`Unknown command "${x}".`),
+		reload: () => mod.loadSettings()
+	})
+
+	// event hooks
 	mod.hook('S_LOAD_TOPO', 3, event => {
 		mod.log(`S_LOAD_TOPO: ${event.zone} @ ${event.loc}`);
 		markers = [];
@@ -21,6 +31,11 @@ module.exports = function GatheringCompass(mod) {
 	mod.hook('S_DESPAWN_COLLECTION', 2, event => {
 		removeMarker(event.gameId);
 	})
+
+	// clean up
+	this.destructor = () => {
+		mod.command.remove(CommandName);
+	}
 
 	function addMarker(id, loc) {
 		loc.z -= 100;
