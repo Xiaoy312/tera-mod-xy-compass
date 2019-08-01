@@ -1,9 +1,8 @@
 {
   "name": "xy-compass",
-  "description": "test",
+  "description": "Display marker on gathering nodes",
   "author": "xiaoy312",
   "version": "0.1.0",
-  "disableAutoUpdate": true,
   "options": {
     "niceName": "Xiaoy's Compass",
     "reloadable": true,
@@ -11,7 +10,6 @@
     "settingsFile": "config.json",
     "settingsMigrator": "settings_migrator.js"
   },
-  "dependencies": {
-      "CaaliStateTracker": "https://raw.githubusercontent.com/caali-hackerman/data-logger/master/update/CaaliStateTracker/module.json"
-  }
+  "servers": ["https://raw.githubusercontent.com/Xiaoy312/tera-mod-xy-compass/master/"],
+  "supportUrl": "https://github.com/Xiaoy312/tera-mod-xy-compass/issues"
 }
