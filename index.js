@@ -13,6 +13,7 @@ module.exports = function GatheringCompass(mod) {
 	// commands
 	mod.command.add(CommandName, {
 		$default: x => mod.command.message(`Unknown command "${x}".`),
+		$none: toggleMod,
 		reload: () => mod.loadSettings()
 	})
 
@@ -68,5 +69,10 @@ module.exports = function GatheringCompass(mod) {
 
 		mod.send('S_DESPAWN_DROPITEM', 4, { gameId: gameId * IdMod });
 		markers.splice(markers.indexOf(gameId.toString()), 1);
+	}
+	function toggleMod() {
+		settings.enabled = !settings.enabled;
+		mod.command.message(`Module '${mod.name}' ${settings.enabled ? 'enabled' : 'disabled'}`);
+		mod.saveSettings();
 	}
 }
