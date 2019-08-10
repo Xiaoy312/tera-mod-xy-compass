@@ -48,7 +48,7 @@ module.exports = function GatheringCompass(mod) {
 		if (!gatherable) return;
 
 		if (!settings.isSilent)
-			mod.command.message(`Found gathering node: [${gatherable.category}] ${gatherable.name}`);
+			mod.command.message(`Found: [${gatherable.category}]${gatherable.name}`);
 		
 		loc.z -= 100;
 

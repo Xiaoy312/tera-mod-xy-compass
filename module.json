@@ -4,7 +4,7 @@
   "author": "xiaoy312",
   "version": "0.1.0",
   "options": {
-    "niceName": "Xiaoy's Compass",
+    "niceName": "Xy's Compass",
     "reloadable": true,
     "settingsVersion": 3,
     "settingsFile": "config.json",
