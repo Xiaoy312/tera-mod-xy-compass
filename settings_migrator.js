@@ -2,6 +2,7 @@
 
 const DefaultSettings = {
   enabled: true,
+  isSilent: true,
   // from: https://teralore.com/us/gatherables/
   plants: [
     { id: 1, category: 'plants', name: 'Harmony Grass' },

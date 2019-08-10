@@ -14,6 +14,7 @@ module.exports = function GatheringCompass(mod) {
 	mod.command.add(CommandName, {
 		$default: x => mod.command.message(`Unknown command "${x}".`),
 		$none: toggleMod,
+		silent: toggleSilent,
 		reload: () => mod.loadSettings()
 	})
 
@@ -24,7 +25,9 @@ module.exports = function GatheringCompass(mod) {
 	})
 
 	mod.hook('S_SPAWN_COLLECTION', 4, event => {
-		mod.log(`S_SPAWN_COLLECTION: ${event.gameId}: ${event.id} ${event.amount}x ${event.loc}`);
+		if (!settings.isSilent)
+			mod.log(`S_SPAWN_COLLECTION: ${event.gameId}: ${event.id} ${event.amount}x ${event.loc}`);
+
 		addMarker(event.gameId, event.id, event.loc);
 	})
 	mod.hook('S_DESPAWN_COLLECTION', 2, event => {
@@ -44,7 +47,8 @@ module.exports = function GatheringCompass(mod) {
 			settings.energy.find(x => x.id === id);
 		if (!gatherable) return;
 
-		mod.command.message(`Found gathering node: [${gatherable.category}] ${gatherable.name}`);
+		if (!settings.isSilent)
+			mod.command.message(`Found gathering node: [${gatherable.category}] ${gatherable.name}`);
 		
 		loc.z -= 100;
 
@@ -73,6 +77,11 @@ module.exports = function GatheringCompass(mod) {
 	function toggleMod() {
 		settings.enabled = !settings.enabled;
 		mod.command.message(`Module '${mod.name}' ${settings.enabled ? 'enabled' : 'disabled'}`);
+		mod.saveSettings();
+	}
+	function toggleSilent(x) {
+		settings.isSilent = !isSilent;
+		mod.command.message(`Module '${mod.name}' ${settings.enabled ? 'muted' : 'unmuted'}`);
 		mod.saveSettings();
 	}
 }
