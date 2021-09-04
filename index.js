@@ -3,7 +3,7 @@
 module.exports = function GatheringCompass(mod) {
 	const CommandName = 'xyc'
 	const IdMod = 2n;
-	const MarkerId = 98260;
+	const MarkerId = 88704;
 
 	let settings = mod.settings;
 	let markers = [];
@@ -63,9 +63,10 @@ module.exports = function GatheringCompass(mod) {
 			enchant: 0,
 			source: 0,
 			debug: false,
-			owners: [{ id: 0 }]
+			autoLoot: false,
+			owners: [mod.game.me.playerId]
 		}
-		mod.send('S_SPAWN_DROPITEM', 7, marker);
+		mod.send('S_SPAWN_DROPITEM', 9, marker);
 		markers.push(gameId.toString());
 	}
 	function removeMarker(gameId) {
@@ -80,8 +81,8 @@ module.exports = function GatheringCompass(mod) {
 		mod.saveSettings();
 	}
 	function toggleSilent(x) {
-		settings.isSilent = !isSilent;
-		mod.command.message(`Module '${mod.name}' ${settings.enabled ? 'muted' : 'unmuted'}`);
+		settings.isSilent = x == true; // arg is passed a string
+		mod.command.message(`Module '${mod.name}' ${settings.isSilent ? 'muted' : 'unmuted'}`);
 		mod.saveSettings();
 	}
 }
